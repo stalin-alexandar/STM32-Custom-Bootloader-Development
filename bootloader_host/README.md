@@ -1,0 +1,102 @@
+# STM32F4 Bootloader Host Tool
+
+A Python host tool for communicating with the STM32F4 custom bootloader over UART.
+
+Built with [pyserial](https://github.com/pyserial/pyserial).
+
+## Features
+
+- Full command set matching the STM32F4 bootloader protocol
+- STM32 HAL-compatible CRC32 verification
+- Firmware upload with sector erase, write, verify, and jump
+- CLI with subcommands for all operations
+- Low-level `raw` command for bring-up and debugging
+
+## Requirements
+
+- Python 3.9+
+- pyserial >= 3.5
+
+## Installation
+
+```bash
+cd bootloader_host
+pip install .
+```
+
+Or install in editable mode for development:
+
+```bash
+pip install -e .
+```
+
+## Usage
+
+### Basic commands
+
+```bash
+# List available serial ports
+blhost ports
+
+# Get bootloader version
+blhost --port COM5 version
+
+# Get chip ID
+blhost --port /dev/ttyUSB0 chip-id
+
+# Read memory
+blhost --port COM5 read 0x08008000 256
+
+# Erase flash sectors (never erase sectors 0-1!)
+blhost --port COM5 erase 2 4
+```
+
+### Firmware update (high-level)
+
+```bash
+# Erase, write, verify, and jump to application
+blhost --port COM5 send firmware.bin --erase --verify --go
+```
+
+### Debugging
+
+```bash
+# Send a raw command
+blhost --port COM5 raw --cmd 0x51
+
+# Verbose output
+blhost --port COM5 --verbose version
+```
+
+## Protocol
+
+The bootloader uses a command-response protocol over UART2 (115200 8N1):
+
+**Request:** `[LEN:1][CMD:1][DATA:N][CRC32_LE:4]`
+
+- LEN = total bytes after the length byte
+- CRC32 covers LEN + CMD + DATA (STM32 HAL CRC polynomial)
+
+**Response:**
+- ACK: `[0xA5][FOLLOW_LEN][DATA...]`
+- NACK: `[0x7F]`
+
+## Flash Memory Map
+
+| Sector | Address        | Size   | Usage        |
+|--------|----------------|--------|--------------|
+| 0      | 0x08000000     | 16 KB  | Bootloader   |
+| 1      | 0x08004000     | 16 KB  | Bootloader   |
+| 2+     | 0x08008000+    | varies | Application  |
+
+**Never erase sectors 0-1** — this would brick the bootloader.
+
+## Development
+
+```bash
+# Install in editable mode
+pip install -e .
+
+# Run tests
+python -m pytest
+```

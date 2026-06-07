@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=64.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bootloader-host"
+version = "0.1.0"
+description = "STM32F4 Custom Bootloader Host Tool - UART firmware update utility"
+authors = []
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pyserial>=3.5",
+]
+
+[project.scripts]
+blhost = "bootloader_host.cli:main"
+bl-gui = "bootloader_host.gui:main"
+blhost-gui = "bootloader_host.gui:main"
+
+[tool.setuptools.packages.find]
+include = ["bootloader_host*"]

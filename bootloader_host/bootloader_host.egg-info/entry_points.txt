@@ -1,0 +1,4 @@
+[console_scripts]
+bl-gui = bootloader_host.gui:main
+blhost = bootloader_host.cli:main
+blhost-gui = bootloader_host.gui:main
