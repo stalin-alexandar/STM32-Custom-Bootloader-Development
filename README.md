@@ -290,7 +290,6 @@ STM32-Custom-Bootloader-Development/
 │   └── README.md               # Host tool documentation
 ├── STM32F407VGTX_FLASH.ld      # Linker script (32 KB bootloader limit)
 ├── STM32F407VGTX_RAM.ld
-├── CLAUDE.md                   # Development guidelines
 └── README.md                   # This file
 ```
 
@@ -342,7 +341,7 @@ Tests cover:
 4. Push to the branch (`git push origin feature/my-feature`)
 5. Open a Pull Request
 
-See [CLAUDE.md](CLAUDE.md) for development guidelines.
+Contributions are welcome! Please fork the repo, create a feature branch, and open a pull request.
 
 ---
 
