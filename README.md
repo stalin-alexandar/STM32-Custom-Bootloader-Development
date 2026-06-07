@@ -201,25 +201,42 @@ Custom Bootloader/
 
 ## 🔍 Implementation Status
 
-### ✅ Completed
+### ✅ Completed (Last Updated: 2026-06-07)
 - [x] Bootloader framework and entry logic
 - [x] UART initialization (command + debug)
 - [x] Button-based mode selection
 - [x] Command reception and dispatch
 - [x] Safe application jump with full system reset
 - [x] CRC peripheral initialization
+- [x] Comprehensive project documentation (README.md, CLAUDE.md)
+- [x] Memory layout and linker script configuration
+- [x] GPIO and peripheral initialization
 
-### ⚠️ In Progress
-- [ ] Command handler implementations (all 12 functions)
+### ⚠️ In Progress (0% Complete)
+- [ ] Command handler implementations (0/12 functions implemented)
+  - [ ] BL_GET_VER (0x51)
+  - [ ] BL_GET_HELP (0x52)
+  - [ ] BL_GET_CID (0x53)
+  - [ ] BL_GET_RPD_STATUS (0x54)
+  - [ ] BL_GO_TO_ADDR (0x55)
+  - [ ] BL_FLASH_ERASE (0x56)
+  - [ ] BL_MEM_WRITE (0x57)
+  - [ ] BL_MEM_READ (0x58)
+  - [ ] BL_EN_R_W_PROJECT (0x59)
+  - [ ] BL_READ_SECTOR_STATUS (0x5A)
+  - [ ] BL_OTP_READ (0x5B)
+  - [ ] BL_DIS_R_RW_PROJECT (0x5C)
 - [ ] CRC verification logic
 - [ ] Flash erase/write operations
-- [ ] Response packet protocol
+- [ ] Response packet protocol (ACK/NACK format)
 
 ### 📝 Planned
 - [ ] Host-side Python upload tool
 - [ ] Timeout handling in UART receive
 - [ ] Watchdog timer integration
 - [ ] Firmware encryption support
+- [ ] Bootloader version management
+- [ ] Error logging mechanism
 
 ## 🚨 Safety Features
 
