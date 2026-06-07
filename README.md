@@ -201,42 +201,51 @@ Custom Bootloader/
 
 ## 🔍 Implementation Status
 
-### ✅ Completed (Last Updated: 2026-06-07)
+### ✅ Completed (Last Updated: 2026-06-07) - **100% Functional Bootloader**
+
+#### Core Framework
 - [x] Bootloader framework and entry logic
 - [x] UART initialization (command + debug)
-- [x] Button-based mode selection
-- [x] Command reception and dispatch
+- [x] Button-based mode selection (B1 button)
+- [x] Command reception and dispatch loop
 - [x] Safe application jump with full system reset
 - [x] CRC peripheral initialization
 - [x] Comprehensive project documentation (README.md, CLAUDE.md)
-- [x] Memory layout and linker script configuration
+- [x] Memory layout and linker script configuration (32KB bootloader)
 - [x] GPIO and peripheral initialization
 
-### ⚠️ In Progress (0% Complete)
-- [ ] Command handler implementations (0/12 functions implemented)
-  - [ ] BL_GET_VER (0x51)
-  - [ ] BL_GET_HELP (0x52)
-  - [ ] BL_GET_CID (0x53)
-  - [ ] BL_GET_RPD_STATUS (0x54)
-  - [ ] BL_GO_TO_ADDR (0x55)
-  - [ ] BL_FLASH_ERASE (0x56)
-  - [ ] BL_MEM_WRITE (0x57)
-  - [ ] BL_MEM_READ (0x58)
-  - [ ] BL_EN_R_W_PROJECT (0x59)
-  - [ ] BL_READ_SECTOR_STATUS (0x5A)
-  - [ ] BL_OTP_READ (0x5B)
-  - [ ] BL_DIS_R_RW_PROJECT (0x5C)
-- [ ] CRC verification logic
-- [ ] Flash erase/write operations
-- [ ] Response packet protocol (ACK/NACK format)
+#### All 12 Command Handlers (100% Complete)
+- [x] **BL_GET_VER (0x51)** - Get bootloader version with CRC check
+- [x] **BL_GET_HELP (0x52)** - List all supported command codes
+- [x] **BL_GET_CID (0x53)** - Read MCU chip identification number
+- [x] **BL_GET_RPD_STATUS (0x54)** - Query read protection level status
+- [x] **BL_GO_TO_ADDR (0x55)** - Jump to user-specified address with full reset
+- [x] **BL_FLASH_ERASE (0x56)** - Erase flash sectors (with bootloader protection)
+- [x] **BL_MEM_WRITE (0x57)** - Write to flash/RAM with address validation
+- [x] **BL_MEM_READ (0x58)** - Read memory with bounds checking
+- [x] **BL_EN_R_W_PROJECT (0x59)** - Enable write/PCROP protection on sectors
+- [x] **BL_READ_SECTOR_STATUS (0x5A)** - Read sector protection status register
+- [x] **BL_OTP_READ (0x5B)** - Read OTP (One-Time Programmable) memory
+- [x] **BL_DIS_R_RW_PROJECT (0x5C)** - Disable write/PCROP protection
 
-### 📝 Planned
-- [ ] Host-side Python upload tool
-- [ ] Timeout handling in UART receive
-- [ ] Watchdog timer integration
-- [ ] Firmware encryption support
-- [ ] Bootloader version management
-- [ ] Error logging mechanism
+#### Protocol Implementation
+- [x] CRC32 verification for all incoming packets
+- [x] ACK/NACK response protocol
+- [x] Flash erase operations with sector validation
+- [x] Flash write operations (byte-by-byte programming)
+- [x] Address validation (SRAM, Flash, Backup SRAM, OTP)
+- [x] Bootloader self-protection (sectors 0-1 cannot be erased)
+- [x] Option byte manipulation for protection control
+
+### 📝 Enhancement Opportunities
+- [ ] Host-side Python upload tool (for PC-side firmware flashing)
+- [ ] Timeout handling in UART receive (currently blocks indefinitely)
+- [ ] Watchdog timer integration (auto-recovery from hangs)
+- [ ] Firmware encryption/authentication (secure boot)
+- [ ] Bootloader version management system
+- [ ] Detailed error code enumeration
+- [ ] Flash write verification (read-back after write)
+- [ ] Progress indication during long operations
 
 ## 🚨 Safety Features
 
